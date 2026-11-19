@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aureon · AI Hedge Fund Desk</title>
+  <meta name="description" content="Aureon: an agentic AI hedge fund desk for Indian markets. You approve every trade." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23d4a84f%22/><path d=%22M16 7l7 18h-3.4l-1.4-4h-4.4l-1.4 4H9z%22 fill=%22%230a0d14%22/></svg>" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="/static/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+  <!-- ============ Sign in ============ -->
+  <div id="login" class="login-screen">
+    <div class="login-art">
+      <div class="brandmark xl"><span class="mark">A</span>AUREON</div>
+      <h2>Your AI hedge fund desk<br />for Indian markets.</h2>
+      <ul class="bullets">
+        <li><b>Ten AI agents</b>: a Fund Manager leading macro, research, fundamental, quant, bear-case, risk, compliance, execution and performance specialists</li>
+        <li><b>Finance-tuned models</b>: Fin-R1 reasoning and FinBERT sentiment</li>
+        <li><b>Voice control</b>: ask, approve or reject trades by speaking</li>
+        <li><b>You stay in control</b>: no trade happens without your approval</li>
+      </ul>
+      <p class="tiny muted">NSE equities (intraday and swing) · MCX commodities · Paper trading</p>
+    </div>
+    <form class="login-card" id="login-form">
+      <h1>Sign in</h1>
+      <p class="muted">One login for clients and administrators.</p>
+      <label>Username<input id="login-user" required maxlength="32" placeholder="e.g. rahul" autocomplete="username" /></label>
+      <label>Access code<input id="login-pass" type="password" placeholder="Provided by Aureon" autocomplete="current-password" /></label>
+      <div id="login-err" class="err"></div>
+      <button class="btn gold block" type="submit">Enter Aureon</button>
+      <p class="tiny muted center">Paper trading for education. Not investment advice.</p>
+    </form>
+  </div>
+
+  <!-- ============ App shell ============ -->
+  <div id="shell" class="shell hidden">
+    <aside class="sidebar">
+      <div class="brandmark"><span class="mark">A</span>AUREON</div>
+      <nav id="nav-client">
+        <div class="nav-title">Trading</div>
+        <a href="#/dashboard" data-ico="◧">Dashboard</a>
+        <a href="#/markets" data-ico="◩">Markets</a>
+        <a href="#/portfolio" data-ico="◔">Portfolio</a>
+        <a href="#/orders" data-ico="☰">Orders</a>
+        <div class="nav-title">AI Fund</div>
+        <a href="#/desk" data-ico="✦">AI Desk</a>
+        <a href="#/memory" data-ico="◈">Memory</a>
+        <div class="nav-title">Account</div>
+        <a href="#/settings" data-ico="⚙">Settings</a>
+      </nav>
+      <nav id="nav-admin" class="hidden">
+        <div class="nav-title admin">Broker console</div>
+        <a href="#/admin" data-ico="◆">Overview</a>
+        <a href="#/admin/orders" data-ico="☷">All orders</a>
+        <a href="#/admin/runs" data-ico="⟳">Agent runs</a>
+        <a href="#/admin/settings" data-ico="⛭">House rules</a>
+      </nav>
+      <div class="side-foot">
+        <div class="me"><span class="avatar" id="me-avatar">?</span><div><b id="me-name"></b><small id="me-role"></small></div></div>
+        <button class="btn ghost sm" id="logout">Sign out</button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="top-right">
+          <button id="stop-speak" class="btn sm danger hidden" title="Stop reading aloud">■ Stop speaking</button>
+          <span id="halt-pill" class="pill danger hidden">⛔ Trading halted</span>
+          <span id="market-pill" class="pill">NSE</span>
+          <span class="pill ghost" id="ws-pill"><i class="dot"></i> Live</span>
+        </div>
+      </header>
+      <div id="approval-bar"></div>
+      <section id="view" class="view"></section>
+    </div>
+  </div>
+
+  <!-- Floating voice button (every page) -->
+  <button id="fab" class="fab hidden" title="Talk to the Fund Manager (click to start/stop)">🎙</button>
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="drawer" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="card-head"><h3 id="drawer-title"></h3><button class="btn ghost sm" id="drawer-close">✕</button></div>
+      <div id="drawer-body"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+# --- API ---
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+python-multipart>=0.0.20
+pydantic-settings>=2.6
+httpx>=0.28
+# --- Agents: LangChain Deep Agents on LangGraph, traced by LangSmith ---
+deepagents==0.7.40
+langchain==1.5.2
+langchain-core==1.8.3
+langgraph==1.2.23
+langgraph-checkpoint-postgres==3.2.1
+langchain-google-genai==4.5.1
+langchain-ollama==1.1.0
+langsmith>=0.4
+# --- MCP: Aureon serves an MCP endpoint and its agents consume MCP tools ---
+mcp==1.30.0
+langchain-mcp-adapters==0.3.2
+# --- Storage (Neon Postgres in cloud, SQLite locally) ---
+sqlalchemy[asyncio]==2.1.9
+aiosqlite>=0.20
+psycopg[binary]==3.3.9
+psycopg-pool==3.3.3
+# --- Market data + quant ---
+pandas>=2.2
+numpy>=2.0
+yfinance==1.8.0
+smartapi-python>=1.5
+pyotp>=2.9
+logzero
+websocket-client
+# --- Finance models + voice (CPU) ---
+transformers>=4.46
+faster-whisper>=1.1
+google-auth>=2.35
+redis>=5.2
