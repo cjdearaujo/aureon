@@ -51,8 +51,12 @@ class HedgeFundRunner:
             from psycopg.rows import dict_row
             from psycopg_pool import AsyncConnectionPool
 
+            # Neon suspends idle compute and closes its connections, so test each connection before use and
+            # retire idle ones early; otherwise a stale socket raises "SSL connection has been closed unexpectedly".
             pool = AsyncConnectionPool(url.replace("postgresql+psycopg://", "postgresql://"), max_size=5, open=False,
-                                       kwargs={"autocommit": True, "prepare_threshold": None, "row_factory": dict_row})
+                                       check=AsyncConnectionPool.check_connection, max_idle=240, max_lifetime=1800,
+                                       kwargs={"autocommit": True, "prepare_threshold": None, "row_factory": dict_row,
+                                               "keepalives": 1, "keepalives_idle": 30})
             await pool.open()
             self._stack.push_async_callback(pool.close)
             self.checkpointer, self.store = AsyncPostgresSaver(pool), AsyncPostgresStore(pool)

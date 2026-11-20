@@ -21,7 +21,7 @@ from __future__ import annotations
 import logging
 
 from deepagents import create_deep_agent
-from langchain.agents.middleware import ToolErrorMiddleware
+from langchain.agents.middleware import TodoListMiddleware, ToolErrorMiddleware
 from deepagents.backends import CompositeBackend, StateBackend, StoreBackend
 
 from app.agents import prompts
@@ -95,7 +95,7 @@ def build_hedge_fund(checkpointer, store, profile: str = "No profile set.", mcp_
         name="hedge-fund-manager",
         model=make_model(s.manager_model),
         tools=T.MANAGER_TOOLS,
-        middleware=_guarded(),
+        middleware=[TodoListMiddleware(), *_guarded()],   # planning tool (write_todos) + tool-error handling
         system_prompt=system_prompt,
         subagents=subagents,
         backend=build_backend(store),
